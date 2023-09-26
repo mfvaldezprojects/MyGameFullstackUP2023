@@ -94,7 +94,7 @@ app.get("/users", async (req, res) => {
 
 
 
-// Creacion del endpoint para traer un solo Usuario
+// Endpoint para crear Usuario
 
 /*  
 app.get("/users/:id", async (req,res) =>{
@@ -124,8 +124,9 @@ app.post("/users", async (req, res) => {
     let name = req.body.name;
     let lastname = req.body.lastname;
     let isActive = req.body.isActive;
+    let role = req.body.role;
     try {
-        const result = await UserController.addUser(username, password, mail, preferred_name, name, lastname, isActiveisActive);
+        const result = await UserController.addUser(username, password, mail, preferred_name, name, lastname, isActive, role);
         if(result){
             res.status(201).send("Usuario creado con exito!");
         }
@@ -137,7 +138,7 @@ app.post("/users", async (req, res) => {
     }
 })
 
-// Obtener un usuario
+// Obtener un Usuario
 app.get("/users/:userId", async (req, res) => {
     console.log("Oteniendo usuario id `${userId}`")
     try {
@@ -150,17 +151,22 @@ app.get("/users/:userId", async (req, res) => {
 })
 
 
+// Obener Trajes
 app.get("/equipments", async (req, res) => {
-    console.log("equipments api")
-    let limit = 5 //req.query.limit;
-    let offset = 0 //req.query.offset;
-    console.log(limit)
-    console.log(offset)
     try {
         const results = await EquipmentController.getAllEquipments(limit,offset);
         res.status(200).json(results);
     } catch (error) {
         res.status(500).send("Se produjo un error. Por favor intente mas tarde.")
+    }
+})
 
+//Obtener Personajes
+app.get("/characters", async (req, res) => {
+    try {
+        const results = await CharacterController.getAllCharacters(limit, offset);
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).send("Se produjo un error. Por favor intente mas tarde.")
     }
 })
