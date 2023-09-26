@@ -14,7 +14,7 @@ _Descargar repositorio con __git pull__ https://github.com/mfvaldezprojects/MyGa
 #### Paquetes requeridos para el funcionamiento del proyecto
 
 ```bash
-  npm install
+npm install
 ```
 
 #### Añadir las variables de entorno
