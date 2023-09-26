@@ -14,7 +14,7 @@ _Descargar repositorio con __git pull__ https://github.com/mfvaldezprojects/MyGa
 #### Paquetes requeridos para el funcionamiento del proyecto
 
 ```bash
-  npm run deploy
+  npm install
 ```
 
 #### Añadir las variables de entorno
@@ -69,15 +69,15 @@ Crea un usuario en la BD de usuarios
 ```
 
 | Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `username`| `string` | **Required**. Id of item to fetch |
-| `password`| `string` | **Required**. Id of item to fetch |
-| `mail`    | `string` | **Required**. Id of item to fetch |
-| `preferred_name`| `string` | **Required**. Id of item to fetch |
-| `name`    | `string` | **Required**. Id of item to fetch |
-| `lastname`| `string` | **Required**. Id of item to fetch |
-| `isActive`| `string` | **Required**. Id of item to fetch |
-| `role`    | `string` | **Required**. Id of item to fetch |
+| :-------- | :------- | :------------------- |
+| `username`| `string` | **Required**.  |
+| `password`| `string` | **Required**.  |
+| `mail`    | `string` | **Required**.  |
+| `preferred_name`| `string` | **Required**. |
+| `name`    | `string` | **Required**.  |
+| `lastname`| `string` | **Required**.  |
+| `isActive`| `string` | **Required**.  |
+| `role`    | `string` | **Required**.  |
 
 
 
