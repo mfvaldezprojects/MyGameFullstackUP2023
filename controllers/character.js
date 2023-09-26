@@ -14,11 +14,15 @@ const addCharacter = async (name, type, gender, age, image) => {
                 image:image
             }
         );
-        
-        let res = await character.save();
-        console.log("Nuevo personaje creado:");
-        console.log(res);
-        return { res };
+        try {
+            let res = await character.save();
+            console.log("Nuevo personaje creado:");
+            console.log(res);
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
     else{
         return false;
@@ -27,7 +31,7 @@ const addCharacter = async (name, type, gender, age, image) => {
 
  
 const getAllCharacters = async (limit, offset) => {
-    const characters = await Character.find({}).limit(limit).skip(offset);
+    const characters = await Character.find({});
     return characters;
 }
 

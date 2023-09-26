@@ -22,11 +22,15 @@ const addUser = async (username, password, mail, preferred_name, name, lastname,
                 role: role,
             }
         );
-        
-        let res = await user.save();
-        console.log("Nuevo usuario creado:");
-        console.log(res);
-        return { res };
+        try {
+            let res = await user.save();
+            console.log("Nuevo usuario creado:");
+            console.log(res);
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        } 
     }
     else{
         return false;

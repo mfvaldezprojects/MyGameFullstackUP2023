@@ -15,11 +15,15 @@ const addEquipment = async (item, category, color, accesories, traits, image) =>
                 image: image
             }
         );
-        
-        let res = await equipment.save();
-        console.log("Nueva vestimenta creada:");
-        console.log(res);
-        return { res };
+        try {
+            let res = await equipment.save();
+            console.log("Nueva vestimenta creada:");
+            console.log(res);
+            return true;
+        } catch (error) {
+            console.log(errpr);
+            return false;
+        }
     }
     else {
         return false;
@@ -27,8 +31,8 @@ const addEquipment = async (item, category, color, accesories, traits, image) =>
 }
 
  
-const getAllEquipments = async (limit, offset) => {
-    const equipments = await Equipment.find({}).limit(limit).skip(offset);
+const getAllEquipments = async () => {
+    const equipments = await Equipment.find({});
     return equipments;
 }
 

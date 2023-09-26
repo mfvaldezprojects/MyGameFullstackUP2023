@@ -154,7 +154,7 @@ app.get("/users/:userId", async (req, res) => {
 // Obener Trajes
 app.get("/equipments", async (req, res) => {
     try {
-        const results = await EquipmentController.getAllEquipments(limit,offset);
+        const results = await EquipmentController.getAllEquipments();
         res.status(200).json(results);
     } catch (error) {
         res.status(500).send("Se produjo un error. Por favor intente mas tarde.")
@@ -164,7 +164,7 @@ app.get("/equipments", async (req, res) => {
 //Obtener Personajes
 app.get("/characters", async (req, res) => {
     try {
-        const results = await CharacterController.getAllCharacters(limit, offset);
+        const results = await CharacterController.getAllCharacters();
         res.status(200).json(results);
     } catch (error) {
         res.status(500).send("Se produjo un error. Por favor intente mas tarde.")
