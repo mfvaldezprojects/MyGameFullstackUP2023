@@ -31,7 +31,7 @@ const addCharacter = async (name, type, gender, age, image) => {
 
  
 const getAllCharacters = async (limit, offset) => {
-    const characters = await Character.find({});
+    const characters = await Character.find({}).limit(limit).skip(offset);
     return characters;
 }
 

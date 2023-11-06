@@ -3,7 +3,6 @@ const User = require ('../models/user');
 
 const addUser = async (username, password, mail, preferred_name, name, lastname, isActive, role) => {
     let isUser = await User.findOne({ mail: mail });
-    console.log(isUser);
     if(!isUser) {
         const encryptedPass = require('crypto')
             .createHash('sha256')
@@ -37,11 +36,37 @@ const addUser = async (username, password, mail, preferred_name, name, lastname,
     }
 }
 
- 
+const validateUser = async (user, password) => {
+    try {
+        let isUser = await User.findOne({
+            username: user
+        });
+        if (!isUser) {
+            return {"msg": "Usuario inexistente!", data: null};
+        } 
+        else {
+            const encryptedPassIn = require('crypto')
+                .createHash('sha256')
+                .update(password)
+                .digest('hex');
+
+            const encryptedPassDB = isUser.password
+
+            if (encryptedPassIn === encryptedPassDB){
+                return {"msg": "Clave incorrecta!", data: null};
+            }
+            else{
+                return {"msg": "Ingreso satisfactorio!", data: isUser};
+            }
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        return {"msg": error, data: null};
+    }
+}
+
 const getAllUsers = async (limit, offset) => {
-    console.log("getallusers")
-    console.log(limit)
-    console.log(User)
     const users = await User.find({}).limit(limit).skip(offset);
     console.log(users)
     return users;
@@ -58,16 +83,14 @@ const editUser = async (user) => {
     return result;
 }
 
-
 const editRoles = async (roles, id) => {
     const result = await User.findbyIdAndUpdate(id, {$set:{ roles:roles }}, {new:true});
     return result;
 }
-
 
 const deleteUser = async(id) => {
     const result = await User.findByIdAndDelete(id);
     return result;
 }
 
-module.exports = { addUser, getAllUsers, getUser, editUser, editRoles, deleteUser };
+module.exports = { addUser, validateUser, getAllUsers, getUser, editUser, editRoles, deleteUser };

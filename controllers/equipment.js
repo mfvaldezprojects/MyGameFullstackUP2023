@@ -31,8 +31,8 @@ const addEquipment = async (item, category, color, accesories, traits, image) =>
 }
 
  
-const getAllEquipments = async () => {
-    const equipments = await Equipment.find({});
+const getAllEquipments = async (limit, offset) => {
+    const equipments = await Equipment.find({}).limit(limit).skip(offset);
     return equipments;
 }
 
