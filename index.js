@@ -114,6 +114,19 @@ app.get("/equipments/:limit", async (req, res) => {
     }
 })
 
+// Obener Trajes por Categoria
+app.get("/equipmentsByCategory/:limit/:category", async (req, res) => {
+    let limit = req.params.limit;
+    let offset = 0
+    let category = req.params.category;    
+    try {
+        const results = await EquipmentController.getAllEquipmentsByCategory(limit, offset,category);
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).send({"msg": "Se produjo un error. Por favor intente mas tarde."});
+    }
+})
+
 //Obtener Personajes genericos (skins)
 app.get("/characters/:limit", async (req, res) => {
     let limit = req.params.limit;

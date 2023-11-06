@@ -36,10 +36,15 @@ const getAllEquipments = async (limit, offset) => {
     return equipments;
 }
 
+const getAllEquipmentsByCategory = async (limit, offset, category) => {    
+    const equipments = await Equipment.find({category: category}).limit(limit).skip(offset);        
+    return equipments;
+}
+
 const getEquipment = async (id) => {
     const equipment = await Equipment.findById(id);
     //await equipment.findOne({ _id:id });
     return equipment;
 }
 
-module.exports = { addEquipment, getAllEquipments, getEquipment };
+module.exports = { addEquipment, getAllEquipments, getAllEquipmentsByCategory, getEquipment };
