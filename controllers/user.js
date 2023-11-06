@@ -37,26 +37,38 @@ const addUser = async (username, password, mail, preferred_name, name, lastname,
 }
 
 const validateUser = async (user, password) => {
-    try {
+    try {        
         let isUser = await User.findOne({
             username: user
-        });
+        });        
         if (!isUser) {
             return {"msg": "Usuario inexistente!", data: null};
         } 
         else {
-            const encryptedPassIn = require('crypto')
-                .createHash('sha256')
-                .update(password)
-                .digest('hex');
+            if (isUser.isActive){
+                const encryptedPassIn = require('crypto')
+                    .createHash('sha256')
+                    .update(password)
+                    .digest('hex');
 
-            const encryptedPassDB = isUser.password
-
-            if (encryptedPassIn === encryptedPassDB){
-                return {"msg": "Clave incorrecta!", data: null};
+                const encryptedPassDB = isUser.password
+                
+                if (encryptedPassIn === encryptedPassDB){                
+                    const user = {"username": isUser.username,
+                                            "mail": isUser.mail,
+                                            "preferred_name": isUser.preferred_name,
+                                            "lastname": isUser.lastname,
+                                            "name": isUser.name,
+                                            "role": isUser.role
+                                            }                    
+                    return {"msg": "Ingreso satisfactorio!", data: user};
+                }
+                else{
+                    return {"msg": "Clave incorrecta!", data: null};
+                }
             }
             else{
-                return {"msg": "Ingreso satisfactorio!", data: isUser};
+                return {"msg": "Usuario inactivo", data: null};
             }
         }
     } 
