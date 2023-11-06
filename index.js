@@ -170,9 +170,7 @@ app.get("/customCharacterByUser/:limit/:user", async (req, res) => {
 })
 
 //Crea personaje personalizado por el usuario
-app.post("/customCharacter", async (req, res) => {
-    console.log("/customCharacter")
-    console.log(req.body)
+app.post("/customCharacter", async (req, res) => {    
     let name = req.body.name;
     let type = req.body.type;
     let gender = req.body.gender;
@@ -208,5 +206,17 @@ app.post("/customCharacter", async (req, res) => {
         }
     } catch (error) {
         res.status(500).send({"msg":"Error al crear el personaje. Intentelo nuevamene"});
+    }
+})
+
+app.delete("/customCharacter/", async (req, res) => {    
+    let name = req.body.name;    
+    try {
+        const results = await CustomCharacterController.deleteCustomCharacters(name);
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).send({
+            "msg": "Se produjo un error. Por favor intente mas tarde."
+        });
     }
 })

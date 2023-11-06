@@ -30,12 +30,12 @@ const addCustomCharacter = async (name, type, gender, age, image, item1, item2, 
 }
 
 const getAllCustomCharacters = async (limit, offset) => {
-    const customCharacters = await CustomCharacter.find({}).limit(limit).skip(offset);
+    const customCharacters = await CustomCharacter.find({}).limit(limit).skip(offset).sort({_id: -1});
     return customCharacters;
 }
 
 const getAllCustomCharactersByUser = async (limit, offset, user) => {
-    const customCharacters = await CustomCharacter.find({username: user}).limit(limit).skip(offset);
+    const customCharacters = await CustomCharacter.find({username: user}).limit(limit).skip(offset).sort({_id: -1});
     return customCharacters;
 }
 
@@ -45,9 +45,16 @@ const getCustomCharacter = async (id) => {
     return customCharacter;
 }
 
+const deleteCustomCharacters = async(name) => {
+    const result = await CustomCharacter.findOneAndDelete({name: name });
+    return result;
+}
+
+
 module.exports = {
     addCustomCharacter,
     getAllCustomCharacters,
     getAllCustomCharactersByUser,
-    getCustomCharacter
+    getCustomCharacter,
+    deleteCustomCharacters
 };
